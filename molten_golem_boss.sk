@@ -1,0 +1,87 @@
+on load:
+    set max health of player to 10
+    set {moltengolemmaxhp} to 512
+    set {moltengolemalive} to false
+
+on rightclick holding a wooden sword: 
+    remove 1 of player's held item from player
+    send title "&4&lMOLTEN GOLEM HAS SPAWNED" with subtitle "&6Spawned by %player%" to all players for 1.5 seconds
+    loop 3 times:
+        broadcast "&4&lMOLTEN GOLEM HAS SPAWNED"
+    execute console command "/execute at @p run playsound minecraft:entity.ender_dragon.growl ambient @p"
+    spawn a iron golem 5 meters above the player
+    set display name of last spawned entity to "&4&lMOLTEN GOLEM"
+
+on spawn of iron golem:
+    wait 0.05 seconds
+    if display name of event-entity is "&4&lMOLTEN GOLEM":
+        set {moltengolemalive} to true
+        apply infinite potion of strength of tier 5 to the event-entity
+        apply infinite potion of fire resistance of tier 1 to the event-entity
+        set max health of event-entity to {moltengolemmaxhp}
+        set health of event-entity to {moltengolemmaxhp}
+        execute console command "/effect give @p minecraft:darkness 10 10"
+        set gravity of event-entity to off
+        wait 3 seconds
+        broadcast "&7<&4&lMOLTEN GOLEM&7>: &6I have awoken from my slumber..."
+        draw the shape (sphere with radius 2.5) at event-entity's head location
+        execute console command "/execute at @p run playsound minecraft:entity.blaze.shoot ambient @p"
+        wait 3 seconds  
+        broadcast "&7<&4&lMOLTEN GOLEM&7>: &6You do not know who you are dealing with... my power is immesurable!"
+        draw the shape (sphere with radius 3.5) at event-entity's head location
+        execute console command "/execute at @p run playsound minecraft:entity.blaze.shoot ambient @p"
+        wait 3 seconds
+        broadcast "&7<&4&lMOLTEN GOLEM&7>: &6I am unstopable!"
+        draw the shape (sphere with radius 4.5) at event-entity's head location
+        execute console command "/execute at @p run playsound minecraft:entity.blaze.shoot ambient @p"
+        wait 3 seconds
+        spawn 100 tnt 0.1 meters above event-entity
+        broadcast "<&4&lMOLTEN GOLEM&7>: &4DIE MORTALS!!!"
+        loop 5 times:
+            execute console command "/execute at @p run playsound minecraft:block.anvil.land ambient @p"
+            wait 0.1 second
+        loop 45 times:
+            set velocity of event-entity to vector(0,0,0)
+            wait 0.1 seconds    
+        wait 0.5 second
+        execute console command "/execute at @p run playsound minecraft:entity.wither.death ambient @p"
+        set health of event-entity to {moltengolemmaxhp}
+        set gravity of event-entity to on
+
+on death:
+    if display name of victim is "&4&lMOLTEN GOLEM":
+        set {moltengolemalive} to false
+
+on damage:
+    if name of victim is "&4&lMOLTEN GOLEM":
+        if attacker is a player:
+            set {blazespawningcd} to 1
+            set {_forcefieldshape} to a sphere of radius 3
+            set {_forcefieldshape}'s particle count to 250
+            while {moltengolemalive} is true:
+                make victim attack attacker 
+                loop all players:
+                    set {blazespawningcd} to {blazespawningcd} - 1
+                    draw the shape {_forcefieldshape} at victim's head location
+                    if distance between attacker and victim is less than or equal to 3:
+                        apply wither of tier 5 to loop-player for 0.6 seconds
+                    if {blazespawningcd} is equal to 0:
+                        loop 4 times:
+                            broadcast "blazes"
+                            spawn 1 blazes at victim's head location
+                            make last spawned entity attack attacker 
+                            apply resistance of tier 5 to last spawned entity
+                            apply strength of tier 3 to last spawned entity
+                            teleport last spawned entity to attacker
+                            teleport the victim to the attacker
+                        set {blazespawningcd} to 800
+                wait 1 tick
+                # set {lastdamage.%uuid of attacker%} to now
+                # remove bossbar "damage.%uuid of attacker%"
+                # set {_health} to health of victim
+                # set {_healthmaxtot} to {_health} / {moltengolemmaxhp} * 100
+                # create bossbar titled "&0§keee&6&lMolten &4&lGolem&0§keee" and id "damage.%uuid of attacker%" for attacker with progress {_healthmaxtot} with colors red
+                # wait 10 seconds
+                # set {_waited} to difference between {lastdamage.%uuid of attacker%} and now
+                # if {_waited} is more than 9.5 seconds:
+                #     remove bossbar "damage.%uuid of attacker%"
