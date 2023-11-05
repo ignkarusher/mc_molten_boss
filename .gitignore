@@ -1,0 +1,11 @@
+
+-- Files prefixed with a hyphen are disabled\! --
+-examples/chest menus.sk
+-examples/commands.sk
+-examples/events.sk
+-examples/functions.sk
+-examples/loops.sk
+-examples/options and meta.sk
+-examples/text formatting.sk
+-examples/timings.sk
+-examples/variables.sk
