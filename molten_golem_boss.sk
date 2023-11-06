@@ -48,6 +48,19 @@ on spawn of iron golem:
         set health of event-entity to {moltengolemmaxhp}
         set gravity of event-entity to on
 
+on damage:
+    if name of victim is "&4&lMOLTEN GOLEM":
+        wait 1 tick
+        set {lastdamage.%uuid of attacker%} to now
+        remove bossbar "damage.%uuid of attacker%"
+        set {_health} to health of victim
+        set {_healthmaxtot} to {_health} / {moltengolemmaxhp} * 100
+        create bossbar titled "&0§keee&6&lMolten &4&lGolem&0§keee" and id "damage.%uuid of attacker%" for attacker with progress {_healthmaxtot} with colors red
+        wait 10 seconds
+        set {_waited} to difference between {lastdamage.%uuid of attacker%} and now
+        if {_waited} is more than 9.5 seconds:
+            remove bossbar "damage.%uuid of attacker%"
+
 on death:
     if display name of victim is "&4&lMOLTEN GOLEM":
         set {moltengolemalive} to false
@@ -58,8 +71,8 @@ on damage:
             set {blazespawningcd} to 1
             set {_forcefieldshape} to a sphere of radius 3
             set {_forcefieldshape}'s particle count to 250
+            wait 1 tick
             while {moltengolemalive} is true:
-                make victim attack attacker 
                 loop all players:
                     set {blazespawningcd} to {blazespawningcd} - 1
                     draw the shape {_forcefieldshape} at victim's head location
@@ -75,13 +88,4 @@ on damage:
                             teleport last spawned entity to attacker
                             teleport the victim to the attacker
                         set {blazespawningcd} to 800
-                wait 1 tick
-                # set {lastdamage.%uuid of attacker%} to now
-                # remove bossbar "damage.%uuid of attacker%"
-                # set {_health} to health of victim
-                # set {_healthmaxtot} to {_health} / {moltengolemmaxhp} * 100
-                # create bossbar titled "&0§keee&6&lMolten &4&lGolem&0§keee" and id "damage.%uuid of attacker%" for attacker with progress {_healthmaxtot} with colors red
-                # wait 10 seconds
-                # set {_waited} to difference between {lastdamage.%uuid of attacker%} and now
-                # if {_waited} is more than 9.5 seconds:
-                #     remove bossbar "damage.%uuid of attacker%"
+                wait 10 tick
