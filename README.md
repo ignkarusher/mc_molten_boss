@@ -2,11 +2,13 @@ Custom Minecraft boss made with Skript (https://skripthub.net/) coded with many 
 
 Here are some of these mentionned examples:
 
+
 Health Bar:
 
 ![image](https://github.com/ignkarusher/mc_molten_boss/assets/149895054/4770d920-90a2-4658-93e1-914157c335fb)
 
 ![image](https://github.com/ignkarusher/mc_molten_boss/assets/149895054/2075164d-3021-4fb1-9144-4060a166700c)
+
 
 Spawning:
 Spawns with a right-click of a custom item, in my case a wooden sword.
@@ -20,17 +22,20 @@ Spawning animation, text and dialogue:
 
 ![image](https://github.com/ignkarusher/mc_molten_boss/assets/149895054/ee948d35-bb41-481f-a122-2474217f6811)
 
+
 Effects given to player on spawn:
 
 ![image](https://github.com/ignkarusher/mc_molten_boss/assets/149895054/9073c5ff-5493-4d06-95f5-921e1392dd6a)
 
 ![image](https://github.com/ignkarusher/mc_molten_boss/assets/149895054/574dc216-2900-4da3-955c-b53064a3c84c)
 
+
 Spawn tnt:
 
 ![image](https://github.com/ignkarusher/mc_molten_boss/assets/149895054/718e8107-04fe-4c2b-8bdf-1656d07fa589)
 
 ![image](https://github.com/ignkarusher/mc_molten_boss/assets/149895054/fe1cb340-6f97-4302-ac5f-ad3762ce7a6f)
+
 
 Bossfight:
 Different abilities including Blaze spawning and fire veils:
